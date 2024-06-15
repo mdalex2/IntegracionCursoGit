@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Models.Entidades
 {
-    public class Producto
+    public class ProductoDto
     {
-        public int Id { get; set;}
         public string NombreProducto { get; set; }
         public string Categoria { get; set; }
         public string Marca { get; set; }
