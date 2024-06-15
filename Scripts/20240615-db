@@ -1,16 +1,17 @@
 
+-- Se elimina y se crea de nuevo la base de datos
 use master;
 GO
-ALTER DATABASE Integracion
-SET SINGLE_USER
-WITH ROLLBACK IMMEDIATE;
+ALTER DATABASE Integracion SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
 GO
 drop database if exists Integracion;
 go
+--creacion de la base de datos
 Create DATABASE Integracion;
 GO
 use Integracion
 Go
+--creación de las tablas
 CREATE TABLE Categoria(
     CategoriaId INT NOT NULL IDENTITY Constraint PK_Categoria primary key,
     Nombre nvarchar(120) NOT NULL
