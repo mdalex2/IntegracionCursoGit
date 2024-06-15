@@ -20,7 +20,8 @@ namespace API.Controllers
                 NombreProducto = s.NombreProducto,
                 Categoria = s.Categoria,
                 Marca = s.Marca,
-                Precio = s.Precio
+                Precio = s.Precio,
+                Costo = s.Costo
             }).ToList();
         }
     }
