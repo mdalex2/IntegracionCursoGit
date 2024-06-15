@@ -4,5 +4,5 @@
 dotnet build
 
 #### Ejecutar la Aplicación
-dotnet watch run
+dotnet watch run --project api
 

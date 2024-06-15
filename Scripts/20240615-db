@@ -1,0 +1,40 @@
+
+use master;
+GO
+ALTER DATABASE Integracion
+SET SINGLE_USER
+WITH ROLLBACK IMMEDIATE;
+GO
+drop database if exists Integracion;
+go
+Create DATABASE Integracion;
+GO
+use Integracion
+Go
+CREATE TABLE Categoria(
+    CategoriaId INT NOT NULL IDENTITY Constraint PK_Categoria primary key,
+    Nombre nvarchar(120) NOT NULL
+)
+GO
+Insert into Categoria (Nombre) values
+    ('Computadoras'),
+    ('Impresoras');
+
+CREATE TABLE Marca(
+    MarcaId INT NOT NULL IDENTITY Constraint PK_Marca primary key,
+    Nombre nvarchar(120) NOT NULL
+)
+GO
+Insert into Marca (Nombre) values
+    ('HP'),
+    ('Samsung');
+
+
+CREATE TABLE Producto(
+    ProductoId INT NOT NULL IDENTITY Constraint PK_Producto primary key,
+    Nombre nvarchar(120) NOT NULL,
+    Precio numeric(7,2) not null,
+    Costo numeric(7,2) not null,
+    CategoriaId int not null constraint FK_Producto_Categoria_CategoriaId FOREIGN KEY (MarcaId) REFERENCES Categoria(CategoriaId) on UPDATE CASCADE,
+    MarcaId int not null constraint FK_Producto_Marca_MarcaId FOREIGN KEY (MarcaId) REFERENCES Marca(MarcaId) on UPDATE CASCADE,
+)
