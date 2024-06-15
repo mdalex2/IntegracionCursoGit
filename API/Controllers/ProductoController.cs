@@ -13,7 +13,7 @@ namespace API.Controllers
     public class ProductoController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<List<Producto>> Get()
+        public ActionResult<List<Producto>> GetListado()
         {
             return ProductoData.listaProductos;
         }
