@@ -27,12 +27,21 @@ namespace API.Controllers
             var lista = await _db.Productos
                             .Include(c => c.Categoria)
                             .Include(m => m.Marca)
-                            .Select(s => new ProductoDto{
+                            .Include(o => o.Promocion)
+                            .Select(s => new ProductoDto
+                            {
                                 NombreProducto = s.Nombre,
                                 Categoria = s.Categoria.Nombre,
                                 Marca = s.Marca.Nombre,
                                 Precio = s.Precio,
-                                Costo = s.Costo
+                                Costo = s.Costo,
+                                PrecioActual = s.Promocion == null
+                                                              ? s.Precio
+                                                              : s.Promocion.NuevoPrecio,
+                                TextoPromocional = s.Promocion == null
+                                                              ? null
+                                                              : s.Promocion.TextoPromocional
+
                             }).ToListAsync();
 
             return Ok(lista);
@@ -44,18 +53,27 @@ namespace API.Controllers
             var producto = await _db.Productos
                             .Include(c => c.Categoria)
                             .Include(m => m.Marca)
+                            .Include(o => o.Promocion)
                             .FirstOrDefaultAsync(f => f.Id == id);
 
-            if (producto == null){
+            if (producto == null)
+            {
                 return NotFound();
             }
 
-        return Ok(new ProductoDto {
+            return Ok(new ProductoDto
+            {
                 NombreProducto = producto.Nombre,
                 Categoria = producto.Categoria.Nombre,
                 Marca = producto.Marca.Nombre,
                 Precio = producto.Precio,
-                Costo = producto.Costo
+                Costo = producto.Costo,
+                PrecioActual = producto.Promocion == null
+                                                        ? producto.Precio
+                                                        : producto.Promocion.NuevoPrecio,
+                TextoPromocional = producto.Promocion == null
+                                                        ? null
+                                                        : producto.Promocion.TextoPromocional
             });
         }
 
@@ -66,7 +84,7 @@ namespace API.Controllers
             {
                 await _db.Productos.AddAsync(producto);
                 await _db.SaveChangesAsync();
-                return CreatedAtAction("GetProductoById",new {id = producto.Id }, producto);
+                return CreatedAtAction("GetProductoById", new { id = producto.Id }, producto);
             }
             catch (System.Exception)
             {
@@ -76,14 +94,17 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutProducto(int id, Producto producto){
+        public async Task<ActionResult> PutProducto(int id, Producto producto)
+        {
             try
             {
-                if (id != producto.Id){
+                if (id != producto.Id)
+                {
                     return BadRequest("No se encontró el producto a modificar.");
                 }
                 var productoDb = await _db.Productos.FindAsync(id);
-                if (productoDb == null){
+                if (productoDb == null)
+                {
                     return NotFound("No se encontró el producto a modificar.");
                 }
                 productoDb.Nombre = producto.Nombre;
@@ -103,11 +124,13 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteProducto(int id){
+        public async Task<ActionResult> DeleteProducto(int id)
+        {
             try
             {
                 var producto = await _db.Productos.FindAsync(id);
-                if (producto == null){
+                if (producto == null)
+                {
                     return NotFound("Producto no encontrado");
                 }
                 _db.Productos.Remove(producto);
