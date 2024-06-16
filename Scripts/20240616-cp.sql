@@ -1,8 +1,9 @@
+use Interfaz
 CREATE TABLE PrecioOferta (
 	  PrecioOfertaId int NOT NUll IDENTITY,
 	  NuevoPrecio numeric(7,2) NOT NULL,
 	  TextoPromocional nvarchar(120) NOT NULL,
-	  ProductoId int NOT NULL 
+	  ProductoId int NOT NULL
 	);
 
     ALTER TABLE PrecioOferta
