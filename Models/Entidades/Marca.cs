@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Models.Entidades
 {
-    [Table("Categoria")]
-    public class Categoria
+    [Table("Marca")]
+    public class Marca
     {
         [Key]
-        [Column("CategoriaId")]
+        [Column("MarcaId")]
         public int Id { get; set; }
         public string Nombre { get; set; }
     }
