@@ -39,3 +39,10 @@ CREATE TABLE Producto(
     CategoriaId int not null constraint FK_Producto_Categoria_CategoriaId FOREIGN KEY (MarcaId) REFERENCES Categoria(CategoriaId) on UPDATE CASCADE,
     MarcaId int not null constraint FK_Producto_Marca_MarcaId FOREIGN KEY (MarcaId) REFERENCES Marca(MarcaId) on UPDATE CASCADE,
 )
+GO
+INSERT into Producto (Nombre,Precio,Costo,CategoriaId,MarcaId) values
+    ('Producto 01',1000,1000,1,1),
+    ('Producto 02',2000,1000,1,2),
+    ('Producto 03',3000,1000,2,1),
+    ('Producto 04',4000,1000,2,2),
+    ('Producto 05',4000,1000,2,2);
