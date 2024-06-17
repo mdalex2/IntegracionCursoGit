@@ -1,4 +1,4 @@
-use Interfaz
+use integracion;
 CREATE TABLE PrecioOferta (
 	  PrecioOfertaId int NOT NUll IDENTITY,
 	  NuevoPrecio numeric(7,2) NOT NULL,
